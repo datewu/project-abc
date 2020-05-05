@@ -1,7 +1,7 @@
 #GO11MODULES=on
 APP?=project-abc
 REGISTRY?=gcr.io/images
-VER?=0.0.2
+VER=$(shell git describe --abbrev=0 --tag || echo v0.0.0) # `echo xxx`
 COMMIT_SHA=$(shell git rev-parse --short HEAD)
 LD_FLAGS="-s -w -X main.GitCommit=${COMMIT_SHA} -X main.SemVer=${VER}"
 
