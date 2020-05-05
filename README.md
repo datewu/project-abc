@@ -18,17 +18,10 @@ Remember to run `go mod init` after git clone:
 
 ```bash
 git clone github.com/datewu/project-abc
-rm -rf go.*
-go mod init github.com/YOUR_NAME/YOUR_PROJECT
-go build
-make test
-## change Makefile APP?=xxx
-## update .gitignore
-make build
+## change Makefile #L2: APP?=xxx
+## change Makefile #L52: @go mod init github.com/YOUR_REPO/${APP}
+make custom
 
-## edit README ....
 ## add github secrets settings
-git add .
-git commit -am "init custom"
 git push 
 ``` 
