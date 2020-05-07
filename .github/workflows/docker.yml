@@ -11,7 +11,7 @@ jobs:
     - name: Check out code 
       uses: actions/checkout@v1
 
-    - name: buil image and push
+    - name: buil and push 
       uses: docker/build-push-action@v1
       with:
         build_args: gitCommit=${{ github.sha }},semVer=${{ github.ref }}

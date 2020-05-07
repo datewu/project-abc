@@ -1,5 +1,5 @@
 #GO11MODULES=on
-APP?=project-abc
+APP?=$(shell basename `pwd`)
 REGISTRY?=gcr.io/images
 VER=$(shell git describe --abbrev=0 --tag || echo v0.0.0) # `echo xxx`
 COMMIT_SHA=$(shell git rev-parse --short HEAD)
