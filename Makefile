@@ -46,7 +46,6 @@ update:
 ## custom: populate the template
 custom:
 	@rm -rf go.*
-## change Makefile APP?=xxx
 	@echo ${APP} > .gitignore
 	@echo populated ${APP} > README.md
 	@go mod init github.com/datewu/${APP}
