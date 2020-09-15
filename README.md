@@ -18,7 +18,7 @@ Remember to run `go mod init` after git clone:
 
 ```bash
 git clone github.com/datewu/project-abc
-## change Makefile #L52: @go mod init github.com/YOUR_REPO/${APP}
+## change Makefile #L59: @go mod init github.com/YOUR_REPO/${APP}
 make custom
 
 ## edit github secrets settings

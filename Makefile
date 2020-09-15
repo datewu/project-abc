@@ -10,6 +10,7 @@ LD_FLAGS="-s -w -X main.GitCommit=${COMMIT_SHA} -X main.SemVer=${VER}"
 build: clean 
 	@echo "Building..."
 	@go build  \
+	-race \
 	-ldflags ${LD_FLAGS} \
 	-o ${APP} 
 	
@@ -19,6 +20,12 @@ dlv-debug: clean
 	-ldflags ${LD_FLAGS} \
 	-gcflags="all=-N -l" \
 	-o ${APP} 
+
+.PHONY: dev
+dev: build
+	ENV_ABC="value abc" \
+	ENV_EDF="value edf" \
+	./${APP} 
 
 
 .PHONY: run
@@ -35,6 +42,7 @@ clean:
 .PHONY: test
 ## test: runs go test with default values
 test:
+	JWT_SECRET_KEY="qq@oshlkol" \
 	go test -timeout 300s -v -count=1 -race ./...
 
 .PHONY: update
