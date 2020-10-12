@@ -1,4 +1,4 @@
-module project-abc
+module github.com/datewu/project-abc
 
 go 1.15
 

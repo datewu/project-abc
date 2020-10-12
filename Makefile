@@ -55,11 +55,13 @@ update:
 custom:
 	@rm -rf go.*
 	@echo ${APP} > .gitignore
-	@echo populated ${APP} > README.md
+	@echo hello ${APP} `data` > README.md
 	@go mod init github.com/datewu/${APP}
 	@go build
-	@make test
-	@make build
+	@go test
+	@go get -u
+	#@make build
+	#@make test
 ## add github secrets settings
 	@git add .
 	@git commit -am "init custom"
