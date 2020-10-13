@@ -66,6 +66,10 @@ custom:
 	@git add .
 	@git commit -am "init custom"
 	@git push 
+	echo ================
+	echo before do any git tag v0.0.x, please
+	echo change TODO:CHANGE-ME in .github/workflows/docker.yml 
+	echo ================
 
 .PHONY: build-tokenizer
 ## build-tokenizer: build the tokenizer application
