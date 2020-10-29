@@ -23,8 +23,7 @@ dlv-debug: clean
 
 .PHONY: dev
 dev: build
-	ENV_ABC="value abc" \
-	ENV_EDF="value edf" \
+	. .env && \
 	./${APP} 
 
 
@@ -55,7 +54,8 @@ update:
 custom:
 	@rm -rf go.*
 	@echo ${APP} > .gitignore
-	@echo hello ${APP} `data` > README.md
+	@echo .env >> .gitignore
+	@echo Hello ${APP} `data` > README.md
 	@go mod init github.com/datewu/${APP}
 	@go build
 	@go test
