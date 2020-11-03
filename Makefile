@@ -11,6 +11,7 @@ build: clean
 	@echo "Building..."
 	@go build  \
 	-race \
+	-gcflags=all=-d=checkptr \
 	-ldflags ${LD_FLAGS} \
 	-o ${APP} 
 	
@@ -18,6 +19,7 @@ dlv-debug: clean
 	@echo "Building for delve debug..."
 	@go build \
 	-ldflags ${LD_FLAGS} \
+	-gcflags=all=-d=checkptr \
 	-gcflags="all=-N -l" \
 	-o ${APP} 
 
