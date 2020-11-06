@@ -50,6 +50,7 @@ test:
 ## update: runs go get -u 
 update:
 	go get -u ./...
+	go mod tidy
 
 .PHONY: custom
 ## custom: populate the template
