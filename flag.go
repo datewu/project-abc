@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"os"
 
 	"github.com/rs/zerolog/log"
 )
@@ -17,6 +18,11 @@ func parseFlag() {
 		Str("gitCommit", GitCommit).
 		Msg("APP starting ...")
 
+	if *modeFlag == "dev" {
+		log.Info().
+			Int("pid", os.Getpid()).
+			Msg("pid for dlv debug attach")
+	}
 	log.Info().
 		Str("mode", *modeFlag).
 		Msg("APP arguments")
