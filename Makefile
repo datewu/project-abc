@@ -19,6 +19,7 @@ dlv-debug: clean
 	@echo "Building for delve debug..."
 	@go build \
 	-ldflags ${LD_FLAGS} \
+	-ldflags=-compressdwarf=false \
 	-gcflags=all=-d=checkptr \
 	-gcflags="all=-N -l" \
 	-o ${APP} 
