@@ -59,6 +59,7 @@ custom:
 	@rm -rf go.*
 	@echo ${APP} > .gitignore
 	@echo .env >> .gitignore
+	@echo .DS_Store >> .gitignore
 	@echo Hello ${APP} `data` > README.md
 	@go mod init github.com/datewu/${APP}
 	@go build

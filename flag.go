@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	modeFlag = flag.String("mode", "dev", "runing mode")
+	modeFlag = flag.String("mode", "dev", "dev/test/production")
 )
 
 func parseFlag() {
