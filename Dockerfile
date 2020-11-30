@@ -14,4 +14,4 @@ FROM alpine
 RUN apk add ca-certificates
 WORKDIR /
 COPY --from=builder /app/app-binary /app-binary
-ENTRYPOINT [ "/app-binary", "-mode", "production" ]
+ENTRYPOINT [ "/app-binary", "-mode", "prod" ]

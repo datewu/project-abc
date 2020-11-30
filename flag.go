@@ -4,6 +4,7 @@ import (
 	"flag"
 	"os"
 
+	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
@@ -18,10 +19,14 @@ func parseFlag() {
 		Str("gitCommit", GitCommit).
 		Msg("APP starting ...")
 
-	if *modeFlag == "dev" {
+	switch *modeFlag {
+	case "dev":
 		log.Info().
 			Int("pid", os.Getpid()).
 			Msg("pid for dlv debug attach")
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
+	case "prod":
+		zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	}
 	log.Info().
 		Str("mode", *modeFlag).
