@@ -60,17 +60,17 @@ custom:
 	@echo ${APP} > .gitignore
 	@echo .env >> .gitignore
 	@echo .DS_Store >> .gitignore
-	@echo Hello ${APP} `data` > README.md
+	@echo Hello ${APP} `date` > README.md
 	@go mod init github.com/datewu/${APP}
 	@go build
 	@go test
-	@go get -u
+	@-go get -u
 	#@make build
 	#@make test
 ## add github secrets settings
 	@git add .
 	@git commit -am "init custom"
-	@git push 
+	@-git push 
 	echo ================
 	echo before do any git tag v0.0.x, please
 	echo change TODO:CHANGE-ME in .github/workflows/docker.yml 
