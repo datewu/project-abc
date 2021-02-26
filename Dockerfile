@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 go build -ldflags "-s -w -X main.GitCommit=${gitCommit} \
     chmod +x /app/app-binary
 
 FROM alpine
-RUN apk add ca-certificates
+RUN apk --no-cache add ca-certificates
 WORKDIR /
 COPY --from=builder /app/app-binary /app-binary
 ENTRYPOINT [ "/app-binary", "-mode", "prod" ]
