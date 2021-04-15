@@ -1,16 +1,20 @@
 # Go Project-abc
 
-## go project template for github.
+[![Go Report Card](https://goreportcard.com/badge/github.com/datewu/project-abc?style=flat-square)](https://goreportcard.com/report/github.com/datewu/project-abc)
+[![Godoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/datewu/project-abc)
+
+## Description
+A go project template
 
 ### Features
 1. Makefile
 2. Dockerfile
 3. Version.go
-4. github ACTIONS (you may need change Github secrets settings)
+4. github ACTIONS (you may need to set repo secrets)
 
 ### Preference
-1. LOG: github.com/rs/zerolog
-2. TESTING: github.com/stretchr/testify
+1. log: github.com/rs/zerolog
+2. test: github.com/stretchr/testify
 
 ### ps
 
@@ -21,5 +25,5 @@ git clone github.com/datewu/project-abc
 ## change Makefile #L59: @go mod init github.com/YOUR_REPO/${APP}
 make custom
 
-## edit github secrets settings
+## configure github secrets settings
 ``` 
