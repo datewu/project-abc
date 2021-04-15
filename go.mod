@@ -1,8 +1,8 @@
 module github.com/datewu/project-abc
 
-go 1.15
+go 1.16
 
 require (
-	github.com/rs/zerolog v1.20.0
-	github.com/stretchr/testify v1.6.1
+	github.com/rs/zerolog v1.21.0
+	github.com/stretchr/testify v1.7.0
 )
