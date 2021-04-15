@@ -44,7 +44,7 @@ clean:
 .PHONY: test
 ## test: runs go test with default values
 test:
-	JWT_SECRET_KEY="qq@oshlkol" \
+	JWT_SECRET_KEY="random_secret_7xxq87xzl9q@oshlkol" \
 	go test -timeout 300s -v -count=1 -race ./...
 
 .PHONY: update
@@ -60,7 +60,6 @@ custom:
 	@echo ${APP} > .gitignore
 	@echo .env >> .gitignore
 	@echo .DS_Store >> .gitignore
-	@echo Hello ${APP} `date` > README.md
 	@go mod init github.com/datewu/${APP}
 	@go build
 	@go test
@@ -71,9 +70,11 @@ custom:
 	@git add .
 	@git commit -am "init custom"
 	@-git push 
+	echo ==================
+	echo == change README.md, please. ===
 	echo ================
-	echo before do any git tag v0.0.x, please
-	echo change CHANGE-ME in .github/workflows/docker.yml 
+	echo before adding any git tag v0.0.x, please
+	echo correct CHANGE-ME in .github/workflows/docker.yml 
 	echo ================
 
 .PHONY: build-tokenizer
