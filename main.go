@@ -1,5 +1,7 @@
 package main
 
+import "github.com/datewu/project-abc/utils"
+
 func main() {
-	parseFlag()
+	utils.ParseFlag()
 }

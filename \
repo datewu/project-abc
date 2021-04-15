@@ -24,8 +24,7 @@ git clone github.com/datewu/project-abc
 ## ***    import "github.com/datewu/project-abc/utils"
 ## *** to
 ## ***   import "github.com/${YOUR_REPO}/utils"
-## *** AND
-## *** change Readme.md accordingly.
+## *** AND change Readme.md accordingly.
 
 ## you may need to change Makefile #L68:
 ##    @go mod init github.com/datewu/${APP}

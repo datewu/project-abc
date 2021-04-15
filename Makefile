@@ -56,6 +56,11 @@ update:
 .PHONY: custom
 ## custom: populate the template
 custom:
+	@echo ************************************
+	@echo    ***   make sure you have ***
+	@echo == changed README.md and main.go. ===
+	@echo    ***   before run make custom  ***
+	@echo ************************************
 	@rm -rf go.*
 	@echo ${APP} > .gitignore
 	@echo .env >> .gitignore
@@ -71,7 +76,6 @@ custom:
 	@git commit -am "init custom"
 	@-git push 
 	echo ==================
-	echo == change README.md, please. ===
 	echo ================
 	echo before adding any git tag v0.0.x, please
 	echo correct CHANGE-ME in .github/workflows/docker.yml 

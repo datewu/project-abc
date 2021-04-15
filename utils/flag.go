@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"flag"
@@ -12,12 +12,9 @@ var (
 	modeFlag = flag.String("mode", "dev", "dev/test/production")
 )
 
-func parseFlag() {
+// ParseFlag ...
+func ParseFlag() {
 	flag.Parse()
-	log.Info().
-		Str("version", SemVer).
-		Str("gitCommit", GitCommit).
-		Msg("APP starting ...")
 
 	switch *modeFlag {
 	case "dev":
