@@ -4,7 +4,7 @@
 [![Godoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/datewu/project-abc)
 
 ## Description
-A go project template
+A go project template on github.
 
 ### Features
 1. Makefile
