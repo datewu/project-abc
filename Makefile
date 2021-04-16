@@ -56,30 +56,31 @@ update:
 .PHONY: custom
 ## custom: populate the template
 custom:
-	@echo ************************************
-	@echo    ***   make sure you have ***
-	@echo == changed README.md and main.go. ===
-	@echo    ***   before run make custom  ***
-	@echo ************************************
+	@echo "************************************"
+	@echo "  ***   make sure you have ***     "
+	@echo "== changed README.md and main.go. ==="
+	@echo "   ***   before run make custom  ***"
+	@echo "************************************"
 	@rm -rf go.*
 	@echo ${APP} > .gitignore
 	@echo .env >> .gitignore
 	@echo .DS_Store >> .gitignore
 	@go mod init github.com/datewu/${APP}
+	@go get -t -u
 	@go build
 	@go test
-	@-go get -u
+	@go mod tidy
 	#@make build
 	#@make test
 ## add github secrets settings
 	@git add .
 	@git commit -am "init custom"
 	@-git push 
-	echo ==================
-	echo ================
+	echo "=================="
+	echo "================"
 	echo before adding any git tag v0.0.x, please
 	echo correct CHANGE-ME in .github/workflows/docker.yml 
-	echo ================
+	echo "================"
 
 .PHONY: build-tokenizer
 ## build-tokenizer: build the tokenizer application
