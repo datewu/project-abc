@@ -62,6 +62,7 @@ custom:
 	@echo "   ***   before run make custom  ***"
 	@echo "************************************"
 	@rm -rf go.*
+	@git rm .env --cached
 	@echo ${APP} > .gitignore
 	@echo .env >> .gitignore
 	@echo .DS_Store >> .gitignore
