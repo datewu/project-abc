@@ -1,118 +1,110 @@
-#GO11MODULES=on
-APP?=$(shell basename `pwd`)
-REGISTRY?=gcr.io/images
-VER=$(shell git describe --abbrev=0 --tag || echo v0.0.0) # `echo xxx`
-COMMIT_SHA=$(shell git rev-parse --short HEAD)
-LD_FLAGS="-s -w -X main.GitCommit=${COMMIT_SHA} -X main.SemVer=${VER}"
+# Include variables from .envrc files
+include .envrc
 
-.PHONY: build
-## build: build the application
-build: clean 
-	@echo "Building..."
-	@go build  \
-	-race \
-	-gcflags=all=-d=checkptr \
-	-ldflags ${LD_FLAGS} \
-	-o ${APP} 
-	
-dlv-debug: clean
-	@echo "Building for delve debug..."
-	@go build \
-	-ldflags ${LD_FLAGS} \
-	-ldflags=-compressdwarf=false \
-	-gcflags=all=-d=checkptr \
-	-gcflags="all=-N -l" \
-	-o ${APP} 
+# ==================================================================================== #
+# HELPERS
+# ==================================================================================== #
 
-.PHONY: dev
-dev: build
-	. .env && \
-	./${APP} 
+## help: print this help message
+.PHONY: help
+help:
+	@echo "\t##IMPORTANT##: please run 'echo .envrc >> .gitignore' at very first time"
+	@echo 'Usage:'
+	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
 
+# Create the new confirm target.
+.PHONY: confirm
+confirm:
+	@echo -n 'Are you sure? [y/N] ' && read ans && [ $${ans:-N} = y ]
 
-.PHONY: run
-## run: runs go run main.go
-run:
-	go run -race main.go
+# ==================================================================================== #
+# DEVELOPMENT
+# ==================================================================================== #
 
-.PHONY: clean
-## clean: cleans the binary
-clean:
-	@echo "Cleaning"
-	@rm -rf ${APP}
+## run/main: run the cmd/main binary file
+.PHONY: run/main
+run/main:
+	go run ./cmd
 
-.PHONY: test
-## test: runs go test with default values
-test:
-	JWT_SECRET_KEY="random_secret_7xxq87xzl9q@oshlkol" \
+## run/test: runs go test with default values
+.PHONY: run/test
+run/test:
 	go test -timeout 300s -v -count=1 -race ./...
 
-.PHONY: update
-## update: runs go get -u 
-update:
+## run/update: runs go get -u && go mod tidy
+.PHONY: run/update
+run/update:
 	go get -u ./...
 	go mod tidy
 
-.PHONY: custom
-## custom: populate the template
-custom:
-	@echo "************************************"
-	@echo "  ***   make sure you have ***     "
-	@echo "== changed README.md and main.go. ==="
-	@echo "   ***   before run make custom  ***"
-	@echo "************************************"
-	@rm -rf go.*
-	@-git rm .env --cached
-	@echo ${APP} > .gitignore
-	@echo .env >> .gitignore
-	@echo .DS_Store >> .gitignore
-	@go mod init github.com/datewu/${APP}
-	@go get -t -u
-	@go build
-	@go test
-	@go mod tidy
-	#@make build
-	#@make test
-## add github secrets settings
-	@git add .
-	@git commit -am "init custom"
-	@-git push 
-	echo "=================="
-	echo "================"
-	echo before adding any git tag v0.0.x, please
-	echo correct CHANGE-ME in .github/workflows/docker.yml 
-	echo "================"
+## db/psql: connection to the database using psql
+.PHONY: db/psql
+db/psql:
+	@psql ${PG_DSN}
 
-.PHONY: build-tokenizer
-## build-tokenizer: build the tokenizer application
-build-tokenizer:
-	${MAKE} -c tokenizer build
+## db/migrations/new name=$1: create a new database migration
+.PHONY: db/migrations/new
+db/migrations/new:
+	@echo 'Creating migrate files for ${name}'
+	@migrate create -seq -ext=.sql -dir=./migrations ${name}
 
-.PHONY: setup
-## setup: setup go modules
-setup:
-	@go mod init \
-		&& go mod tidy \
-		&& go mod vendor
-	
-# helper rule for deployment
-check-environment:
-ifndef ENV
-	$(error ENV not set, allowed values - `staging` or `production`)
-endif
+## db/migrations/up: apply all up database migrations
+.PHONY: db/migrations/up
+db/migrations/up: confirm
+	@echo 'Running up migrations...'
+	@migrate -path ./migrations -database ${PG_DSN} up
 
-.PHONY: docker-build
-## docker-build: builds the stringifier docker image to registry
-docker-build: build
-	docker build -t ${APP}:${COMMIT_SHA} .
+# ==================================================================================== #
+# QUALITY CONTROL
+# ==================================================================================== #
 
-.PHONY: docker-push
-## docker-push: pushes the stringifier docker image to registry
-docker-push: check-environment docker-build
-	docker push ${REGISTRY}/${ENV}/${APP}:${COMMIT_SHA}
+## audit: tidy dependencies and format, vet and test all code
+.PHONY: audit
+audit:
+	@echo 'Tidying and verifying module dependencies...'
+	go mod tidy
+	go mod verify
+	@echo 'Formatting code...'
+	go fmt ./...
+	@echo 'Vetting code...'
+	go vet ./...
+	#staticcheck ./...  # go install honnef.co/go/tools/cmd/staticcheck@latest
+	@echo 'Running tests...'
+	go test -race -vet=off ./...
 
-.PHONY: help
-## help: Prints this help message
-help:
-	@echo "Usage: \n"
-	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
+## vendor: tidy and vendor dependencies
+.PHONY: vendor
+vendor:
+	@echo 'Tidying and verifying module dependencies...'
+	go mod tidy
+	go mod verify
+	@echo 'Vendoring dependencies...'
+	go mod vendor
+
+# ==================================================================================== #
+# BUILD
+# ==================================================================================== #
+
+#current_time = $(shell date --iso-8601=seconds)
+current_time = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
+git_description = $(shell git describe --always --dirty --tags --long)
+linker_flags = '-s -X main.buildTime=${current_time} -X main.version=${git_description}'
+
+## build/api: build the cmd/api application
+.PHONY: build/api
+build/main:
+	@echo 'Building cmd/...'
+	go build -ldflags=${linker_flags} -o=./bin/cmd ./cmd
+	#go tool dist list
+	GOOS=linux GOARCH=amd64 go build -ldflags=${linker_flags} -o=./bin/linux_amd64/cmd ./cmd
+
+## build/dlv-debug: build the application with dlv gcflags
+.PHONY: build/dlv-debug
+build/dlv-debug: clean
+	@echo "Building for delve debug..."
+	@go build \
+	-ldflags ${linker_flags} \
+	-ldflags=-compressdwarf=false \
+	-gcflags=all=-d=checkptr \
+	-gcflags="all=-N -l" \
+	-o ./bin/cmd ./cmd

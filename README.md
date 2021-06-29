@@ -6,36 +6,11 @@
 [![Godoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/datewu/project-abc)
 
 ## Description
-A go project template on github.
+A go execuable binary project source code layout template for github.
 
 ### Features
 1. Makefile
 2. Dockerfile
-3. Version.go
-4. github ACTIONS (you may need to set repo secrets)
+3. github ACTIONS (you may need to set repo secrets)
+4. no third party package dependency
 
-### Preference
-1. log: github.com/rs/zerolog
-2. test: github.com/stretchr/testify
-
-### Usage
-```bash
-git clone github.com/datewu/project-abc
-
-## *** change main.go #L3: 
-## ***    import "github.com/datewu/project-abc/utils"
-## *** to
-## ***   import "github.com/${YOUR_REPO}/utils"
-## *** AND
-## *** change Readme.md accordingly.
-
-## you may need to change Makefile #L68:
-##    @go mod init github.com/datewu/${APP}
-##  to
-##    @go mod init github.com/${YOUR_REPO}
-
-make custom
-
-## configure github secrets settings
-
-``` 
