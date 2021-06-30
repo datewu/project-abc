@@ -2,9 +2,6 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/datewu/project-abc?style=flat-square)](https://goreportcard.com/report/github.com/datewu/project-abc)
 
-// pkg only; delete this badge on main/binary program
-[![Godoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/datewu/project-abc)
-
 ## Description
 A go execuable binary project source code layout template for github.
 

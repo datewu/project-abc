@@ -1,12 +1,12 @@
-FROM golang:1.16.4-alpine as builder
+FROM golang:1.16.5-alpine as builder
 RUN apk add ca-certificates git
-ARG gitCommit
-ARG semVer
+ARG current_time
+ARG git_description
 COPY ./ /app
 WORKDIR /app
-RUN CGO_ENABLED=0 go build -ldflags "-s -w -X main.GitCommit=${gitCommit} \
-    -X main.SemVer=${semVer} \
-    " -o ./app-binary && \
+RUN CGO_ENABLED=0 go build -ldflags \
+    "-s -X main.buildTime=${current_time} -X main.version=${git_description}" \
+    -o ./app-binary ./cmd && \
     mv ./app-binary /app/ && \
     chmod +x /app/app-binary
 

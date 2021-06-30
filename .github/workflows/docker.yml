@@ -29,7 +29,8 @@ jobs:
         #fi
         echo ::set-output name=version::${VERSION}
         echo ::set-output name=tags::${TAGS}
-        echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+        echo ::set-output name=current_time::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+        echo ::set-output name=git_description::$(git describe --always --dirty --tags --long)
 
     - name: setup QEMU
       uses: docker/setup-qemu-action@v1
@@ -54,8 +55,8 @@ jobs:
         tag_with_ref: true
         repository: ${{ github.repository }}
         build_args: |
-          gitCommit=${{ github.sha }}
-          semVer=${{ github.ref }}
+          current_time=${{ steps.prep.outputs.current_time }}
+          git_description=${{ steps.prep.outputs.git_description }}
 
     - name: imge digest
       run: echo ${{ steps.docker_build.outputs.digest }}
