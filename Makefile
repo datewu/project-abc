@@ -92,7 +92,7 @@ linker_flags = '-s -X main.buildTime=${current_time} -X main.version=${git_descr
 
 ## build/api: build the cmd/api application
 .PHONY: build/api
-build/main:
+build/main: audit
 	@echo 'Building cmd/...'
 	go build -ldflags=${linker_flags} -o=./bin/cmd ./cmd
 	#go tool dist list

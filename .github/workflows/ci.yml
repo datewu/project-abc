@@ -22,7 +22,7 @@ jobs:
         go get -v -t -d ./...
 
     - name: Test
-      run: make test
+      run: make run/test
 
   build:
     name: Build
@@ -43,4 +43,4 @@ jobs:
         go get -v -t -d ./...
 
     - name: Build
-      run: go build -v .
+      run: make build/main
