@@ -1,5 +1,5 @@
 # Include variables from .envrc files
-include .envrc
+-include .envrc
 
 # ==================================================================================== #
 # HELPERS
