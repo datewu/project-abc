@@ -71,4 +71,6 @@ jobs:
         -X POST \
         -H "Authorization: $TOKEN" \
         --data-binary '{"deploy_name":"CHANGE-ME","container_name":"CHANGE-ME","img":"${{ steps.prep.outputs.tags }}"}'
+
+        # --data-binary '{"sts_name":"CHANGE-ME","container_name":"CHANGE-ME","img":"${{ steps.prep.outputs.tags }}"}'
         
