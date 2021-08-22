@@ -70,4 +70,4 @@ jobs:
        curl $URL \
         -X POST \
         -H "Authorization: $TOKEN" \
-        --data-binary '{"type", "CHANGE-ME/deploy/sts/etc","name":"CHANGE-ME","container_name":"CHANGE-ME","img":"${{ steps.prep.outputs.tags }}"}'
+        --data-binary '{"namespace":"CHANGE_ME", "type":"CHANGE-ME/deploy/sts/etc","name":"CHANGE-ME","container_name":"CHANGE-ME","img":"${{ steps.prep.outputs.tags }}"}'
