@@ -100,11 +100,11 @@ build/main: audit
 
 ## build/dlv-debug: build the application with dlv gcflags
 .PHONY: build/dlv-debug
-build/dlv-debug: clean
+build/dlv-debug: 
 	@echo "Building for delve debug..."
 	@go build \
 	-ldflags ${linker_flags} \
 	-ldflags=-compressdwarf=false \
 	-gcflags=all=-d=checkptr \
 	-gcflags="all=-N -l" \
-	-o ./bin/cmd ./cmd
+	-o ./bin/debug ./cmd
