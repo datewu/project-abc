@@ -26,6 +26,11 @@ confirm:
 run/main:
 	go run ./cmd
 
+## run/debug: debug app use dlv
+.PHONY: run/debug
+run/debug:
+	dlv debug ./cmd --headless --listen :4040
+
 ## run/test: runs go test with default values
 .PHONY: run/test
 run/test:
