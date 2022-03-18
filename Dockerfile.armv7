@@ -1,4 +1,4 @@
-FROM golang:1.17.2-alpine as builder
+FROM golang:1.18.0-alpine as builder
 RUN apk add ca-certificates git
 ARG current_time
 ARG git_description
@@ -6,15 +6,16 @@ COPY ./ /app
 WORKDIR /app
 RUN CGO_ENABLED=0 \
     GOOS=linux \
-	GOARCH=arm \
-	GOARM=7 \
+    GOARCH=arm \
+    GOARM=7 \
     go build -ldflags \
     "-s -X main.buildTime=${current_time} -X main.version=${git_description}" \
     -o ./app-binary ./cmd && \
     mv ./app-binary /app/ && \
     chmod +x /app/app-binary
 
-FROM alpine@sha256:7bf024556a224584c0fff680d650b4be2ad560b17f6f627b11e0e2d5beb4b597
+# arm v7 3.15.1
+FROM alpine@sha256:392d9d85dff31e34d756be33579f05ef493cb1b0edccc36a11b3295365553bfd
 RUN apk --no-cache add ca-certificates
 WORKDIR /
 COPY --from=builder /app/app-binary /app-binary
