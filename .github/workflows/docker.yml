@@ -49,7 +49,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./Dockerfile
+        file: ./deploy/Dockerfile
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.prep.outputs.tags }}
         build-args: |
@@ -58,14 +58,3 @@ jobs:
 
     - name: imge digest
       run: echo ${{ steps.docker_build.outputs.digest }}
-
-    - name: post to CI/CD webhook
-      shell: bash
-      env:
-        TOKEN: ${{ secrets.K8_CI_TOKEN }}
-        URL: ${{ secrets.K8_CI_URL }}
-      run: |
-       curl $URL \
-        -X POST \
-        -H "Authorization: $TOKEN" \
-        --data-binary '{"namespace":"wu/etc", "kind":"deploy/sts/etc","name":"CHANGE-ME","container_name":"CHANGE-ME","img":"${{ steps.prep.outputs.tags }}"}'
