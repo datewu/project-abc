@@ -58,3 +58,15 @@ jobs:
 
     - name: imge digest
       run: echo ${{ steps.docker_build.outputs.digest }}
+
+    - name: post to CD webhook
+      shell: bash
+      env:
+        URL: ${{ secrets.WEBHOOK }}
+        TAG: ${{ steps.prep.outputs.tags }}
+        # TOKEN: ${{ secrets.K8_CI_TOKEN }}
+        # -H "Authorization: $TOKEN" \
+      run: |
+       curl -X POST \
+        $URL?tag=$TAG \
+        --data-binary '{"key":"value"}' 
