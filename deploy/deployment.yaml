@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:stable
+        image: ghcr.io/nginx:stable
         resources:
           limits:
             cpu: 150m
