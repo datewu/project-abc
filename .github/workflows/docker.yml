@@ -74,3 +74,14 @@ jobs:
        curl -X POST \
         $URL?tag=$TAG \
         --data-binary '{"key":"value"}' 
+
+    - name: post to set-img webhook
+      shell: bash
+      env:
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        URL: ${{ secrets.SET_IMG_URL }}
+      run: |
+       curl $URL \
+        -X POST \
+        -H "Authorization: $TOKEN" \
+        --data-binary '{"namespace":"TODO-wu","kind": "TODO-deploy","name":"TODO-name","container_name":"TODO-name","img":"${{ steps.prep.outputs.tags }}"}'
