@@ -63,7 +63,7 @@ spec:
       paths:
       - backend:
           service:
-            name: nignx-abc
+            name: nginx-abc
             port:
               number: 80
         path: /
