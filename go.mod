@@ -1,3 +1,3 @@
-module github.com/datewu/project-abc
+module github.com/datewu/abc
 
-go 1.18
+go 1.19
