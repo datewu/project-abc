@@ -4,9 +4,9 @@ import (
 	"context"
 	"flag"
 
+	"github.com/datewu/abc/cmd/api" // change pkg path
 	"github.com/datewu/gtea"
 	"github.com/datewu/gtea/jsonlog"
-	"github.com/datewu/laba/cmd/api"
 )
 
 var (
