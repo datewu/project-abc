@@ -14,17 +14,13 @@ var (
 	buildTime string
 )
 var (
-	port       int
-	env        string
-	kubeconfig string
+	port int
+	env  string
 )
 
 func main() {
-
 	flag.IntVar(&port, "port", 8080, "API server port")
 	flag.StringVar(&env, "env", "development", "Environment (development|staging|production)")
-	flag.StringVar(&kubeconfig, "kubeconfig", "in-cluster", "path to kubernetes config file")
-
 	flag.Parse()
 
 	cfg := &gtea.Config{
