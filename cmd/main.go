@@ -32,7 +32,7 @@ func main() {
 	ctx := context.Background()
 	app := gtea.NewApp(ctx, cfg)
 	app.Logger.Info("APP Starting",
-		map[string]interface{}{
+		map[string]any{
 			"version":   version,
 			"gitCommit": buildTime,
 			"mode":      env,
