@@ -1,7 +1,7 @@
 module github.com/datewu/abc
 
-go 1.19
+go 1.20
 
-require github.com/datewu/gtea v0.3.1
+require github.com/datewu/gtea v0.4.24
 
-require golang.org/x/time v0.0.0-20220922220347-f3bd1da661af // indirect
+require golang.org/x/time v0.3.0 // indirect

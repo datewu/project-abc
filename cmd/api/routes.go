@@ -11,7 +11,7 @@ import (
 func New(app *gtea.App) http.Handler {
 	r := router.DefaultRoutesGroup()
 	addBusinessRoutes(app, r)
-	return r
+	return r.Handler()
 }
 
 func addBusinessRoutes(app *gtea.App, r *router.RoutesGroup) {
@@ -20,5 +20,4 @@ func addBusinessRoutes(app *gtea.App, r *router.RoutesGroup) {
 	g.Get("/", hw)
 	a := g.Group("/auth", handler.TokenMiddleware(auth))
 	a.Get("/hosts", host.list)
-
 }
