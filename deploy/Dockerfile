@@ -1,4 +1,4 @@
-FROM golang:1.20.0-alpine3.17 as builder
+FROM golang:1.20.2-alpine3.17 as builder
 RUN apk add ca-certificates git
 ARG current_time
 ARG git_description
