@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: tobechanged
 # namespace: wu
   labels:
-    app: nginx
+    app: tobechanged
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: tobechanged
   template:
     metadata:
       labels:
-        app: nginx
+        app: tobechanged
     spec:
       #imagePullSecrets:
       #- name: ghcr
       containers:
-      - name: nginx
-        image: ghcr.io/nginx:stable
+      - name: tobechanged
+        image: ghcr.io/datewu/tobechanged:v0.0.1
         resources:
           limits:
             cpu: 150m
@@ -28,18 +28,18 @@ spec:
             cpu: 100m
             memory: 128Mi
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: http-web-svc
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-abc
+  name: tobechanged-abc
 # namespace: wu
 spec:
   selector:
-    app: nginx
+    app: tobechanged
   ports:
   - name: name-of-service-port
     protocol: TCP
@@ -52,23 +52,23 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-#   nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-  name: nginx
+#   tobechanged.ingress.kubernetes.io/backend-protocol: HTTPS
+  name: tobechanged
 # namespace: wu
 spec:
   ingressClassName: public
   rules:
-  - host: abc.deoops.com
+  - host: tobechanged.deoops.com
     http:
       paths:
       - backend:
           service:
-            name: nginx-abc
+            name: tobechanged-abc
             port:
               number: 80
         path: /
         pathType: Prefix
   tls:
   - hosts:
-    - abc.deoops.com
-    secretName: abc.deoops.com.tls
+    - tobechanged.deoops.com
+    secretName: tobechanged.deoops.com.tls
