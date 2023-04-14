@@ -101,13 +101,13 @@ current_time = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 git_description = $(shell git describe --always --dirty --tags --long)
 linker_flags = '-s -X main.buildTime=${current_time} -X main.version=${git_description}'
 
-## build/api: build the cmd/api application
-.PHONY: build/api
+## build/main: build the cmd/api application
+.PHONY: build/main
 build/main: audit
 	@echo 'Building cmd/...'
 	go build -ldflags=${linker_flags} -o=./bin/cmd ./cmd
-	#go tool dist list
-	GOOS=linux GOARCH=amd64 go build -ldflags=${linker_flags} -o=./bin/linux_amd64/cmd ./cmd
+	# go tool dist list
+	# GOOS=linux GOARCH=amd64 go build -ldflags=${linker_flags} -o=./bin/linux_amd64/cmd ./cmd
 
 ## build/dlv-debug: build the application with dlv gcflags
 .PHONY: build/dlv-debug
