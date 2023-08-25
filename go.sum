@@ -1,4 +1,4 @@
-github.com/datewu/gtea v0.5.0 h1:MfLOE+hRKFbwNEE+2fcYipOzFkS4/lDxPVWjZCq/ssY=
-github.com/datewu/gtea v0.5.0/go.mod h1:NzavDc2UPdejh9DMbxu4k1cta8k725mvy6tno3rQaYc=
+github.com/datewu/gtea v0.5.3 h1:EYOmhbcXSrwRBgkM1A3xhCKA9WglbrvTrewd8Junh2k=
+github.com/datewu/gtea v0.5.3/go.mod h1:9v9nj7WglTrkKxC2E6eOAyGxa3FUCGf3owT/HM3Jv80=
 golang.org/x/time v0.3.0 h1:rg5rLMjNzMS1RkNLzCG38eapWhnYLFYXDXj2gOlr8j4=
 golang.org/x/time v0.3.0/go.mod h1:tRJNPiyCQ0inRvYxbN9jk5I+vvW/OXSQhTDSoE431IQ=
