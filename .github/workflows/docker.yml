@@ -68,8 +68,9 @@ jobs:
       env:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
         URL: ${{ secrets.SET_IMG_URL }}
+        USER: ${{ github.actor }}
       run: |
-       curl $URL \
+       curl "$URL?user=$USER" \
         -X POST \
         -H "Authorization: $TOKEN" \
         --data-binary '{"namespace":"TODO-wu","kind": "TODO-deploy","name":"TODO-name","container_name":"TODO-name","img":"${{ steps.prep.outputs.tags }}"}'
